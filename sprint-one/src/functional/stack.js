@@ -28,3 +28,8 @@ var Stack = function() {
 
   return someInstance;
 };
+
+//var stack = new Stack() --> instantiation of {} with stack methods
+// stack.push('a'); --> storage[o] = a;
+// purpose is not to return the empty instance but to get the stack methods 
+// that can manipulate your private storage

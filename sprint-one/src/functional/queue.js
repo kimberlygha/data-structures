@@ -17,3 +17,5 @@ var Queue = function() {
 
   return someInstance;
 };
+
+//like a double stack where you can reverse the stack in order to access the last item via a shift
