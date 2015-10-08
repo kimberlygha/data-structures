@@ -1,8 +1,52 @@
 var Queue = function() {
-  // Hey! Rewrite in the new style. Your code will wind up looking very similar,
-  // but try not not reference your old code in writing the new style.
+  var someInstance = {
+    storage : {},
+    length : 0
+  };
+
+  //extend defined in other file
+  extend(someInstance, queueMethods);
+
+  return someInstance;
 };
 
-var queueMethods = {};
+var queueMethods = {
+
+  enqueue : function(value) {
+    this.storage[this.length] = value; 
+    this.length++; 
+  },
+
+  dequeue : function() {
+    // loop through storage
+    // store current value into variable temp
+    if ( this.length > 0) {
+      var temp;
+      for (var i = 0; i < this.length; i++) {
+        // if key equals 0
+        if (i === 0) {
+          // store first value in temp
+          temp =this.storage[i];
+        }
+        // if key = length -1
+        if ( i === (this.length - 1)) {
+          // delete key
+          delete this.storage[i];
+        }
+        // storage[i] = storage[i +1]
+        this.storage[i] = this.storage[i +1]
+      }
+      // decrement length
+        this.length--;
+      // return temp
+      return temp;
+    }
+  },
+
+  size : function() {
+    return this.length; 
+  }
+
+};
 
 
