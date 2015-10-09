@@ -16,15 +16,13 @@ var LinkedList = function() {
       list.tail = node; 
     // else
     } else {
-      // using the value of tail as a key on list, access the "next" property, and set it to value
-      list[list.tail.value]["next"] = value;
-      // create a new key that's equal to value and set it to node
-      list[value] = node;
+      // using the value of tail as a key on list, access the "next" property, and set it to node
+      list[list.tail.value]["next"] = node;
       // set tail to node
       list.tail = node; 
 
       if (list.head.next === null) {
-        list.head.next = value;
+        list.head.next = node;
       }
 
     }
@@ -33,30 +31,32 @@ var LinkedList = function() {
   list.removeHead = function() {
     // declare variable that stores list.head.value
     var headValue = list.head.value;
-    // set list.head to value of list with a key of list.head.next
-    list.head = list[list.head.next];
+    var headNode = list.head.next;
     // delete list.headValue
-    delete list[headValue];
+    delete list[list.head];
+    // set list.head to value of list with a key of list.head.next
+    list.head = headNode;
     // return variable
     return headValue;
   };
 
-  list.contains = function(target) {
-    // create a variable called result and set to false 
-    var result = false; 
-    // iterate through list 
-    for (var key in list){
-      // if key does not equal head or tail 
-      if (key !== 'head' && key !== 'tail'){
-        // check if current element's value equals target 
-        if (list[key]['value'] === target){
-          // return true
-          result = true; 
-        }
-      }
+  list.contains = function(target, node) {
+
+    // if node is not defined, give it a value of list.head
+    node = node || list.head;
+    // check if node.value equals target
+    if (node.value === target) {
+      // return true
+      return true;
     }
-    // return result
-    return result; 
+    // check if node.next equals null
+    if (node.next === null) {
+      // return false
+      return false;
+    }
+    // call the function again on the next object
+    return list.contains(target, node.next);
+
   };
 
   return list;
@@ -73,4 +73,7 @@ var Node = function(value) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+  Contains - 1 recursion - O(n)
+  Remove - O(1)
+  Add - O(1)
  */
