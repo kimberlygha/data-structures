@@ -123,49 +123,40 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
 
 // ------------------------
 // Remove an edge between any two specified (by value) nodes.
-Graph.prototype.removeEdge = function(fromNode, toNode) {
-  // iterate over storage
-  for (var i = 0; i< this.storage.length; i++) {
-    // if the value of the current element of storage (this.storage[i][0]) equals fromNode
-    if (this.storage[i][0] === fromNode) {
-      // iterate over its links
-      for (var j = 0; j < this.storage[i][1].length; j++) {
-        // if the link equals toNode
-        if (this.storage[i][1][j] === toNode) {
-          // splice links to remove toNode
-          this.storage[i][1].splice(j,1);
+Graph.prototype.removeEdge = function(from, to) {
+  var that = this;
+  // declare a function that removes edges from two nodes 
+  var removeLinks = function(fromNode, toNode){
+    // iterate over storage
+    for (var i = 0; i< that.storage.length; i++) {
+      // if the value of the current element of storage (this.storage[i][0]) equals fromNode
+      if (that.storage[i][0] === fromNode) {
+        // iterate over its links
+        for (var j = 0; j < that.storage[i][1].length; j++) {
+          // if the link equals toNode
+          if (that.storage[i][1][j] === toNode) {
+            // splice links to remove toNode
+            that.storage[i][1].splice(j,1);
+            console.log(that.storage[i][1]);
+          }
         }
       }
     }
-  }
-  // call removeEdge and switch parameters
-  this.removeEdge(toNode, fromNode);  
+  };
 
+  removeLinks(to, from);  
+  removeLinks(from, to);
 
-  // // iterate over elements in storage array 
-  // for(var i=0; i<this.storage.length; i++){
-  //   var storageEl = this.storage[i];
-  //   // for each element in links 
-  //   for(var i=0; i<links.length; i++){
-  //     // check to see if the current element[0] in storage equals the current element in links
-  //     if(storageEl[0] === links[i]){
-  //       // if true, loop through edges in current element of storage
-  //       for(var i=0; i<storageEl[1]; i++){
-  //         // check to see if current element of edges matches current element of links
-  //         if(storageEl[1][i] === node){
-  //           // if true, splice current element[1] to remove this edge 
-  //           storageEl[1].splice(i,1);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-  // 
 };
 
 // ------------------------
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
+  // iterate over storage 
+  for(var i=0; i<this.storage.length; i++){
+    // call cb for each element  
+    cb(this.storage[i][0]);
+  }
 };
 
 /*
