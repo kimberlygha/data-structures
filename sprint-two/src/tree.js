@@ -5,6 +5,7 @@ var Tree = function(value) {
   // your code here
   extend(newTree, treeMethods);
   newTree.children = []; 
+  newTree.parent = null;
 
   return newTree;
 };
@@ -12,8 +13,10 @@ var Tree = function(value) {
 var treeMethods = {};
 
 treeMethods.addChild = function(value) {
+  var child = Tree(value);
+  child.parent = this;
   // call tree and pass in value and push to the children array  
-  this.children.push(Tree(value));
+  this.children.push(child);
 };
 
 treeMethods.contains = function(target, state) {
@@ -40,6 +43,20 @@ var extend = function(to, from) {
   for (var key in from) {
     to[key] = from[key];
   }
+};
+
+//.removeFromParent() method, which disassociates the tree with its parent (in both directions)
+var removeFromParent = function() {
+  // iterate over children from parent of this node
+  for (var i = 0; i < this.parent.children.length; i++) {
+    // if the value is equal to this node
+    if (this.parent.children[i] === this) {
+      // splice children array to remove current node
+      this.parent.children.splice(i,1);
+    }
+  }
+  // set parent of this node to null
+  this.parent = null;
 };
 
 /*
