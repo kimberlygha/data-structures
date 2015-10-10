@@ -9,7 +9,7 @@ var DoubleLinkedList = function() {
     // if list = {}
     if (list.head === null) {
       // set list = node;
-      list[value] = node; 
+      // list[value] = node; //because can just use links from head to tail, don't need to store anything in the list itself
       // set list.head = node;
       list.head = node; 
       // set list.tail = node;
@@ -17,9 +17,9 @@ var DoubleLinkedList = function() {
     // else
     } else {
       // using the value of tail as a key on list, access the "next" property, and set it to node
-      list[list.tail.value]["next"] = node;
+      list.tail.value.next = node;
       // set the previous property of current node to the last value of tail
-      node.previous = list[list.tail.value];
+      node.previous = list.tail;
       // set tail to node
       list.tail = node; 
 
@@ -31,13 +31,15 @@ var DoubleLinkedList = function() {
   };
 
   list.removeHead = function() {
-    // declare variable that stores list.head.value
+    // declare variable that stores current head's value
     var headValue = list.head.value;
-    var headNode = list.head.next;
-    // delete list.headValue
-    delete list[list.head];
-    // set list.head to value of list with a key of list.head.next
-    list.head = headNode;
+    //if there is more than one value in list
+    if (list.head.next) {
+     // set previous value of current head's next to null
+      list.head.next.previous = null;
+    }
+    // set head to next
+    list.head = list.head.next;
     // return variable
     return headValue;
   };
@@ -103,4 +105,6 @@ var Node = function(value) {
   Contains - 1 recursion - O(n)
   Remove - O(1)
   Add - O(1)
+  addToHead - O(1)
+  removeTail - O(1)
  */
