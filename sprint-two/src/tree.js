@@ -39,14 +39,8 @@ treeMethods.contains = function(target, state) {
   return state; 
 };
 
-var extend = function(to, from) {
-  for (var key in from) {
-    to[key] = from[key];
-  }
-};
-
 //.removeFromParent() method, which disassociates the tree with its parent (in both directions)
-var removeFromParent = function() {
+treeMethods.removeFromParent = function() {
   // iterate over children from parent of this node
   for (var i = 0; i < this.parent.children.length; i++) {
     // if the value is equal to this node
@@ -57,6 +51,12 @@ var removeFromParent = function() {
   }
   // set parent of this node to null
   this.parent = null;
+};
+
+var extend = function(to, from) {
+  for (var key in from) {
+    to[key] = from[key];
+  }
 };
 
 /*
