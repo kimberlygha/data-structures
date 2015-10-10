@@ -5,10 +5,11 @@ var HashTable = function() {
   this._storage = LimitedArray(this._limit);
 };
 
+//NOTE: Redo code so that instead of setting keys on the LimitedArray object, we use the provided methods to access and worth with the actual storage array
+
 HashTable.prototype.insert = function(k, v) {
   // debugger;
   var index = getIndexBelowMaxForKey(k, this._limit);
-  //var bucket = this._storage[index]; //bucket broke everything for some reason, so ignore this line. why?
   // if this._storage[index] (bucket) is undefined 
   if(this._storage[index] === undefined){
     // set this._storage[index] to an empty array 
