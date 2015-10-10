@@ -47,3 +47,4 @@ var extend = function(to, from) {
   add - constant
   contains - minimum linear bc there's a for loop (Fawn: quadratic?)
  */
+// Note: Functional - shared pattern
